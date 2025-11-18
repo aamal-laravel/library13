@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -21,7 +22,22 @@ class BookController extends Controller
         ];
     }
 
+    function getByTitle(Request $request){
+        $title = $request->title;
+       $books =  Book::where('title' , 'like' , "%$title%")->get();
+    //    return $books;
+       return [
+            'success' => true,
+            'message' => "books contain  $title",
+            'data' => $books
+        ];
+    }
 
+    function getByCategory(Request $request){
+        $category_id = $request->category_id;
+        $books = Book::where('category_id' , $category_id )->get();
+        return $books;
+    }
     /**
      * Store a newly created resource in storage.
      */

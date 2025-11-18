@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
 use Illuminate\Http\Request;
@@ -23,3 +24,7 @@ Route::get('categories/{id}' , [CategoryController::class , 'show']);
 // Route::apiResource('books' , BookController::class)->except('show');
 // Route::apiResource('books' , BookController::class)->only('index' ,'show');
 Route::apiResource('books' , BookController::class);
+Route::get('books-by-title' , [BookController::class , 'getByTitle']);
+Route::get('books-by-category' , [BookController::class , 'getByCategory']);
+
+Route::apiResource('authors' , AuthorController::class);
