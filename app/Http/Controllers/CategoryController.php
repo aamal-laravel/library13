@@ -18,6 +18,9 @@ class CategoryController extends Controller
     }
 
     function store(Request $request){
+        $request->validate([
+            'name' => 'required|max:50|unique:categories'
+        ]);
         $category = new Category();
         $category->name = $request->name;
         $category->save();
@@ -39,6 +42,10 @@ class CategoryController extends Controller
     }
 
     function update(Request $request , $id){
+        //except: pk of excepted record
+        $request->validate([
+            'name' => "required|max:50|unique:categories,name,$id"
+        ]);
         // return $request;
         $category = Category::find($id);
         $category->name = $request->name;
