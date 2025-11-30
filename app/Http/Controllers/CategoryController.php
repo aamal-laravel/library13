@@ -7,17 +7,18 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    function index(){
+    function index()
+    {
         $categories = Category::all();
-         return [
+        return [
             'success' => true,
             'message' => "all category ",
             'data' => $categories
         ];
-
     }
 
-    function store(Request $request){
+    function store(Request $request)
+    {
         $request->validate([
             'name' => 'required|max:50|unique:categories'
         ]);
@@ -31,17 +32,18 @@ class CategoryController extends Controller
         ];
     }
 
-    function show($id){
+    function show($id)
+    {
         $category = Category::find($id);
         return [
             'success' => true,
             'message' => "one category",
             'data' => $category
         ];
-
     }
 
-    function update(Request $request , $id){
+    function update(Request $request, $id)
+    {
         //except: pk of excepted record
         $request->validate([
             'name' => "required|max:50|unique:categories,name,$id"
@@ -56,15 +58,20 @@ class CategoryController extends Controller
             'data' => $category
 
         ];
-
     }
-    function destroy($id){
+    function destroy($id)
+    {
         $category = Category::find($id);
+        if ($category->books->count())
+            return [
+                'success' => false,
+                'message' => "can't delete category has books",
+            ];
+
         $category->delete();
         return [
             'success' => true,
             'message' => "category deleted successfully"
         ];
-
     }
 }

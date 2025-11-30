@@ -14,4 +14,7 @@ class Book extends Model
     public $incrementing = false;
     protected $fillable = ['ISBN' , 'title' , 'price' , 'mortgage' ,'authorship_date' ,'category_id'];
 
+    function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

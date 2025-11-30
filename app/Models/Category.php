@@ -8,5 +8,10 @@ class Category extends Model
 {
     
     public $timestamps = false;
+    protected $fillable = ['name'];
+
+    function books(){
+        return $this->hasMany(Book::class);
+    }
 
 }
