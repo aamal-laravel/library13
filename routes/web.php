@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 
 /* *****  test routes **********/
-/* == 1-m == */
+/* =============== 1-m ================ */
 // use as property
 Route::get('1-m-child', function () {
     $category = Category::first();
@@ -38,12 +38,6 @@ Route::get('1-m-delete/{category}', function (Category $category) {
     return Category::all();
 });
 
-Route::get('1-m-delete/{category}', function (Category $category) {
-    $books = $category->books()->delete();
-    $category->delete();
-    return Category::all();
-});
-
 Route::get('1-m-create', function () {
     $category = Category::create(['name' => 'new category']);
     $category->books()->create([
@@ -56,4 +50,14 @@ Route::get('1-m-create', function () {
         'categories' => Category::all(),
         'books' => Book::all()
     ];
+});
+
+/* =============== env- config ================ */
+Route::get('env' , function(){
+    // return env('APP_NAME');
+    return env('APP_NAME' , 'Not Found');
+});
+
+Route::get('config' , function(){
+    return config('app.name');
 });
