@@ -83,3 +83,12 @@ Route::get('book-detach', function () {
     $book->authors()->detach([ 2]);
     return redirect('m-m-1') ;
 });
+
+/* ===============storage================ */
+Route::get('storage-path', function () {
+    // return storage_path();
+    return storage_path('app\\private');
+});
+Route::get('public-path', function () {
+    return public_path();
+});

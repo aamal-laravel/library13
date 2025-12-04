@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -22,20 +23,22 @@ class BookController extends Controller
         ];
     }
 
-    function getByTitle(Request $request){
+    function getByTitle(Request $request)
+    {
         $title = $request->title;
-       $books =  Book::where('title' , 'like' , "%$title%")->get();
-    //    return $books;
-       return [
+        $books =  Book::where('title', 'like', "%$title%")->get();
+        //    return $books;
+        return [
             'success' => true,
             'message' => "books contain  $title",
             'data' => $books
         ];
     }
 
-    function getByCategory(Request $request){
+    function getByCategory(Request $request)
+    {
         $category_id = $request->category_id;
-        $books = Book::where('category_id' , $category_id )->get();
+        $books = Book::where('category_id', $category_id)->get();
         return $books;
     }
     /**
@@ -44,7 +47,16 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         // return $request;
-       $book =  Book::create($request->all());
+        $book =  Book::create($request->all());
+        if ($request->hasFile('cover')) {
+            $file = $request->file('cover');
+            $filename = "$book->ISBN." . $file->extension();
+            // Storage::putFileAs('book-images' , $file , $filename , "public");
+            Storage::putFileAs('book-images', $file, $filename);
+            $book->cover = $filename;
+            $book->save();
+        }
+
         return [
             'success' => true,
             'message' => "book added successfully ",
@@ -70,8 +82,18 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        // return  $book;
         $book->update($request->all());
+        if ($request->hasFile('cover')) {
+            if ($book->cover)
+                // Storage::disk('public')->delete("book-images/$book->cover");           
+                Storage::delete("book-images/$book->cover");
+            $file = $request->file('cover');
+            $filename = "$book->ISBN." . $file->extension();
+            // Storage::putFileAs('book-images' , $file , $filename , "public");
+            Storage::putFileAs('book-images', $file, $filename);
+            $book->cover = $filename;
+            $book->save();
+        }
         return [
             'success' => true,
             'message' => "book updated successfully ",
@@ -84,8 +106,10 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        if ($book->cover)
+            Storage::delete("book-images/$book->cover");
         $book->delete();
-         return [
+        return [
             'success' => true,
             'message' => "book deleted successfully ",
             'data' => null
