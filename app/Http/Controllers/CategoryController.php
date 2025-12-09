@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseHelper;
+use App\Http\Resources\CategoryResourse;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
@@ -9,12 +11,13 @@ class CategoryController extends Controller
 {
     function index()
     {
-        $categories = Category::all();
-        return [
-            'success' => true,
-            'message' => "all category ",
-            'data' => $categories
-        ];
+        // $categories = Category::all();
+        $categories = Category::withCount('books')->get();
+        // $categories = Category::with('books')->get();
+        // return $categories;
+
+        return ResponseHelper::success("all category", CategoryResourse::collection($categories));
+        
     }
 
     function store(Request $request)
@@ -35,11 +38,8 @@ class CategoryController extends Controller
     function show($id)
     {
         $category = Category::find($id);
-        return [
-            'success' => true,
-            'message' => "one category",
-            'data' => $category
-        ];
+        return ResponseHelper::success("one category", new CategoryResourse( $category));
+       
     }
 
     function update(Request $request, $id)
