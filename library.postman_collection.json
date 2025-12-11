@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "dd23f404-bc60-4596-bf8d-82e0f4ad306c",
+		"_postman_id": "c1b43cc2-f357-46b3-9e9b-9ab0ba0edced",
 		"name": "library",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24631824"
+		"_exporter_id": "50107872",
+		"_collection_link": "https://aamal-laravel-9605168.postman.co/workspace/Ayham's-Workspace~97d4b17d-902b-4556-8295-5001c256a98a/collection/50107872-c1b43cc2-f357-46b3-9e9b-9ab0ba0edced?action=share&source=collection_link&creator=50107872"
 	},
 	"item": [
 		{
@@ -43,7 +44,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\" : \"cooking\"\r\n}",
+					"raw": "{\r\n    \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -76,7 +77,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\" : \"dishes\"\r\n}",
+					"raw": "{\r\n    \"name\" : \"cooking\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,14 +85,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/api/categories/5",
+					"raw": "{{url}}/api/categories/1",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
 						"categories",
-						"5"
+						"1"
 					]
 				}
 			},
@@ -134,14 +135,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{url}}/api/categories/1",
+					"raw": "{{url}}/api/categories/2",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
 						"categories",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -183,13 +184,39 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"ISBN\" : \"1112223334445\" ,\r\n    \"title\" : \"تيسير الأمور في ملء القدور\"  ,\r\n    \"price\": 1,\r\n    \"mortgage\" : 10,\r\n    \"category_id\" : 5\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "ISBN",
+							"value": "1111112222225",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "سر السعادة",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "mortgage",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "cover",
+							"type": "file",
+							"src": "/C:/Users/Admin/Pictures/كتاب.png"
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "{{url}}/api/books",
@@ -207,7 +234,7 @@
 		{
 			"name": "books-update",
 			"request": {
-				"method": "PATCH",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Accept",
@@ -216,13 +243,19 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"price\" : 2\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cover",
+							"type": "file",
+							"src": "/C:/Users/Admin/Pictures/كتاب.png"
+						},
+						{
+							"key": "_method",
+							"value": "patch",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "{{url}}/api/books/1112223334445",
@@ -275,14 +308,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{url}}/api/books/1112223334445",
+					"raw": "{{url}}/api/books/1111112222223",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
 						"books",
-						"1112223334445"
+						"1111112222223"
 					]
 				}
 			},
@@ -442,6 +475,143 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"noor\" ,\r\n    \"email\" : \"noor12@gmail.com\" ,\r\n    \"password\" : \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"noor12@gmail.com\" ,\r\n        \"password\" : \"123456\"   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "current-user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 2|2sZgLMwGkJLji6FgxxtInNd5iGZGhe875BT9ZtmEad8d71ee",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/current-user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"current-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "2|2sZgLMwGkJLji6FgxxtInNd5iGZGhe875BT9ZtmEad8d71ee",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
