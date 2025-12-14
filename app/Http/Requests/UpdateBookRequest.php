@@ -22,7 +22,11 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'sometimes|string|max:50',
+            'price' => 'sometimes|numeric|min:0|max:99.99',
+            'mortgage' => 'sometimes|numeric|min:0|max:999.99',
+            'authorship_date ' => 'nullable|date',
+            'cover' => 'nullable|image|max:2000'
         ];
     }
 }
