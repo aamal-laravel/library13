@@ -14,17 +14,31 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $orderBy = $request->orderBy;
+        $dir = $request->dir ?? 'asc';
+        // return $orderBy;
         // $books = Book::all();
         // return $books;
-        $books = Book::with('category')->get();
+        // if ($orderBy)
+        //     $books = Book::with('category')->orderBy($orderBy)->get();
+        // else
+        //     $books = Book::with('category')->get();
+
+
+        $books = Book::with('category')
+            ->when($orderBy  , function ($q) use ($orderBy , $dir) {
+                return $q->orderBy($orderBy , $dir);
+            })
+            ->get();
+
         return [
             'success' => true,
             'message' => "all books ",
-            'data' => BookResourse::collection( $books)
+            'data' => BookResourse::collection($books)
         ];
-    }
+    }   
 
     function getByTitle(Request $request)
     {
@@ -85,8 +99,9 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
+        // return $request->all();
         $book->update($request->all());
-        if ($request->hasFile('cover')) {
+        if ($request->hasFile('cover')) {           
             if ($book->cover)
                 // Storage::disk('public')->delete("book-images/$book->cover");           
                 Storage::delete("book-images/$book->cover");

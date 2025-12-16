@@ -16,7 +16,7 @@ return new class extends Migration
             $table->enum('gender' , ['M' , 'F']);
             $table->char('phone', 10);
             $table->string('avatar');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->unique()->constrained();
             $table->timestamps();
         });
     }
