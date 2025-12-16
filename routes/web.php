@@ -92,3 +92,17 @@ Route::get('storage-path', function () {
 Route::get('public-path', function () {
     return public_path();
 });
+/* ===============view================ */
+Route::get('view-test' , function(){
+    // return view('categories.index');  
+    return view('categories.index' , ['x' => 5 , 'y' => 10]);
+});
+/* compact */
+Route::get('compact' , function(){
+    $x = 5;
+    $y = 10;
+    // return view('categories.index' , ['x' => $x , 'y' => $y]);
+    // return compact('x' , 'y');
+    return view('categories.index' ,  compact('x' , 'y'));
+    
+});
