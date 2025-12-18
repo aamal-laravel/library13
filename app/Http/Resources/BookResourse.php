@@ -20,7 +20,7 @@ class BookResourse extends JsonResource
             "price" => $this->price,
             "mortgage" => $this->mortgage,
             "authorship_date" => $this->authorship_date,
-            "cover" =>  env('APP_URL'). "/storage/book-images/$this->cover",
+            "cover" =>  env('APP_URL'). "/storage/book-images/" . ($this->cover??'no-image.jpg'),
             "category" => $this->category->name,
         ];
     }
