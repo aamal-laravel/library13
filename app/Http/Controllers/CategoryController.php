@@ -6,17 +6,26 @@ use App\Helpers\ResponseHelper;
 use App\Http\Resources\CategoryResourse;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cookie;
 
 class CategoryController extends Controller
 {
-    function index()
+    function index(Request  $request)
     {
+        // if (Cookie::has('language')){
+        //     $cookie = Cookie::get('language');
+        //     App::setlocale($cookie);
+        // }
+        
         // $categories = Category::all();
         $categories = Category::withCount('books')->get();
         // $categories = Category::with('books')->get();
         // return $categories;
-
-        return ResponseHelper::success("all category", CategoryResourse::collection($categories));
+        if ($request->is('api/*'))
+            return ResponseHelper::success("all category", CategoryResourse::collection($categories));
+        else
+            return view('categories.index' , compact('categories'));
         
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Author;
 use App\Models\Book;
@@ -26,6 +27,8 @@ require __DIR__.'/auth.php';
 
 /* ********************* my routes *******************/
 Route::get('categories' , [CategoryController::class , 'index']);
+
+Route::get('lang' , [LangController::class , 'setLang']);
 
 /* ********************* test route *******************
 /* =============== 1-m ================ */
