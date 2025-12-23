@@ -16,11 +16,17 @@ class LangMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
-        if (Cookie::has('language')) {
-            $cookie = Cookie::get('language');
-            App::setlocale($cookie);
+    {        
+        if ($request->is('api/*')) {
+            if ($request->hasHeader('Accept-Language'))
+                $lang = $request->header('Accept-Language');
+        } else {
+            if (Cookie::has('language'))
+                $lang = Cookie::get('language');
         }
+        if (isset($lang))
+            App::setLocale($lang);
+
         return $next($request);
     }
 }
