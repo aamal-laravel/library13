@@ -15,12 +15,22 @@ class AuthController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:50',
             'email' => 'required|email|max:175|unique:users',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'gender' => 'required|in:M,F',
+            'phone' => 'required|digits:10',
+            'avatar' => 'image|mimes:jpeg,jpg,png|max:2048'
         ]);
 
         $user = User::create(
             $validated
         );
+
+        /* create customer without avatar 😢 */
+        $user->customer()->create([
+            'gender' => $validated['gender'],
+            'phone' => $validated['phone'],
+            'avatar' => $request->avatar,
+        ]);
 
         return ResponseHelper::success(
             "user created successfully",
@@ -39,16 +49,16 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->password,  $user->password)) {
-            return ResponseHelper::success("user logged successfully" , [
+            return ResponseHelper::success("user logged successfully", [
                 'user' => $user,
                 'token' => $user->createToken("Api Token")->plainTextToken,
             ]);
-        }
-        else
+        } else
             return ResponseHelper::error("invalid credential");
     }
 
-    function logout(){
+    function logout()
+    {
         $token = Auth::user()->currentAccessToken()->delete();
         return ResponseHelper::success("user logout successfully");
     }

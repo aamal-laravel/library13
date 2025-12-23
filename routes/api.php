@@ -34,7 +34,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('books-by-category', [BookController::class, 'getByCategory']);
 
     Route::apiResource('authors', AuthorController::class);
+
+    
     Route::post('logout', [AuthController::class, 'logout']);
+
 });
 
 Route::post('register', [AuthController::class, 'register']);
