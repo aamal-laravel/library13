@@ -27,6 +27,11 @@ require __DIR__.'/auth.php';
 
 /* ********************* my routes *******************/
 Route::get('categories' , [CategoryController::class , 'index']);
+Route::get('categories/create' , [CategoryController::class , 'create']);
+Route::post('categories' , [CategoryController::class , 'store']);
+Route::get('categories/edit/{id}' , [CategoryController::class , 'edit']);
+Route::post('categories/update/{id}' , [CategoryController::class , 'update']);
+Route::post('categories/delete/{id}' , [CategoryController::class , 'destroy']);
 
 Route::get('lang' , [LangController::class , 'setLang']);
 

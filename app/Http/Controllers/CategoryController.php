@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,7 @@ class CategoryController extends Controller
         //     $cookie = Cookie::get('language');
         //     App::setlocale($cookie);
         // }
-        
+
         // $categories = Category::all();
         $categories = Category::withCount('books')->get();
         // $categories = Category::with('books')->get();
@@ -25,8 +26,11 @@ class CategoryController extends Controller
         if ($request->is('api/*'))
             return ResponseHelper::success("all category", CategoryResourse::collection($categories));
         else
-            return view('categories.index' , compact('categories'));
-        
+            return view('categories.index', compact('categories'));
+    }
+    function create()
+    {
+        return view('categories.create');
     }
 
     function store(Request $request)
@@ -37,18 +41,28 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = $request->name;
         $category->save();
-        return [
-            'success' => true,
-            'message' => "category added successfully",
-            'data' => $category
-        ];
+        if ($request->is('api/*'))
+            return [
+                'success' => true,
+                'message' => "category added successfully",
+                'data' => $category
+            ];
+        else
+            return redirect('categories');
     }
+
 
     function show($id)
     {
         $category = Category::find($id);
-        return ResponseHelper::success("one category", new CategoryResourse( $category));
-       
+        return ResponseHelper::success("one category", new CategoryResourse($category));
+    }
+
+
+    function edit($id)
+    {
+        $category = Category::find($id);
+        return view('categories.edit', compact('category'));
     }
 
     function update(Request $request, $id)
@@ -61,26 +75,39 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->name = $request->name;
         $category->save();
-        return [
-            'success' => true,
-            'message' => "category updated successfully",
-            'data' => $category
+        if ($request->is('api/*'))
+            return [
+                'success' => true,
+                'message' => "category updated successfully",
+                'data' => $category
 
-        ];
+            ];
+        else
+            return redirect('categories');
     }
-    function destroy($id)
+    function destroy($id, Request $request)
     {
         $category = Category::find($id);
+
+
         if ($category->books->count())
-            return [
-                'success' => false,
-                'message' => "can't delete category has books",
-            ];
+            if ($request->is('api/*'))
+                return [
+                    'success' => false,
+                    'message' => "can't delete category has books",
+                ];
+            else
+                return redirect('categories');
+
+
 
         $category->delete();
-        return [
-            'success' => true,
-            'message' => "category deleted successfully"
-        ];
+        if ($request->is('api/*'))
+            return [
+                'success' => true,
+                'message' => "category deleted successfully"
+            ];
+        else
+            return redirect('categories');
     }
 }
