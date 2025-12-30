@@ -83,7 +83,7 @@ class CategoryController extends Controller
 
             ];
         else
-            return redirect('categories');
+            return redirect()->route('categories.index');
     }
     function destroy($id, Request $request)
     {
@@ -97,7 +97,8 @@ class CategoryController extends Controller
                     'message' => "can't delete category has books",
                 ];
             else
-                return redirect('categories');
+                return redirect()->route('categories.index');
+
 
 
 
@@ -108,6 +109,6 @@ class CategoryController extends Controller
                 'message' => "category deleted successfully"
             ];
         else
-            return redirect('categories');
+            return redirect()->route('categories.index');
     }
 }

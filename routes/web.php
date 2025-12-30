@@ -26,12 +26,12 @@ require __DIR__.'/auth.php';
 
 
 /* ********************* my routes *******************/
-Route::get('categories' , [CategoryController::class , 'index']);
-Route::get('categories/create' , [CategoryController::class , 'create']);
-Route::post('categories' , [CategoryController::class , 'store']);
-Route::get('categories/edit/{id}' , [CategoryController::class , 'edit']);
-Route::post('categories/update/{id}' , [CategoryController::class , 'update']);
-Route::post('categories/delete/{id}' , [CategoryController::class , 'destroy']);
+Route::get('categories' , [CategoryController::class , 'index'])->name('categories.index');
+Route::get('categories/create' , [CategoryController::class , 'create'])->name('categories.create');
+Route::post('categories' , [CategoryController::class , 'store'])->name('categories.store');
+Route::get('categories/edit/{id}' , [CategoryController::class , 'edit'])->name('categories.edit');
+Route::post('categories/update/{id}' , [CategoryController::class , 'update'])->name('categories.update');
+Route::post('categories/delete/{id}' , [CategoryController::class , 'destroy'])->name('categories.destroy');
 
 Route::get('lang' , [LangController::class , 'setLang']);
 
@@ -138,4 +138,8 @@ Route::get('compact' , function(){
 
 Route::get('master' , function(){
     return view('layouts.master');
+});
+/* ***********route*****/
+Route::get('route' , function(){
+    return route('categories.index');
 });

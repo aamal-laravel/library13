@@ -10,7 +10,7 @@
               </li>
 
               <li class="sidebar-item">
-                  <a class="sidebar-link" href="/categories">
+                  <a class="sidebar-link" href="{{ route('categories.index')}}">
                       <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Categories</span>
                   </a>
               </li>

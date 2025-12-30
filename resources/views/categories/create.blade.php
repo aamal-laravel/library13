@@ -9,6 +9,6 @@
             <input type="text" class="form-control" name="name" id="name">
         </div>
         <button class="btn btn-secondary">@lang('library.add-category')</button>
-        <a href="/categories" class="btn btn-outline-secondary">@lang('library.back')</a>
+        <a href="{{route('categories.index')}}" class="btn btn-outline-secondary">@lang('library.back')</a>
     </form>
 @endsection     
