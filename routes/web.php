@@ -22,18 +22,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 /* ********************* my routes *******************/
-Route::get('categories' , [CategoryController::class , 'index'])->name('categories.index');
-Route::get('categories/create' , [CategoryController::class , 'create'])->name('categories.create');
-Route::post('categories' , [CategoryController::class , 'store'])->name('categories.store');
-Route::get('categories/edit/{id}' , [CategoryController::class , 'edit'])->name('categories.edit');
-Route::post('categories/update/{id}' , [CategoryController::class , 'update'])->name('categories.update');
-Route::post('categories/delete/{id}' , [CategoryController::class , 'destroy'])->name('categories.destroy');
 
-Route::get('lang' , [LangController::class , 'setLang']);
+Route::controller(CategoryController::class)
+    ->prefix('categories')
+    ->name('categories.')->group(function () {
+        Route::get('',  'index')->name('index');
+        Route::get('/create',  'create')->name('create');
+        Route::post('',  'store')->name('store');
+        Route::get('/edit/{id}',  'edit')->name('edit');
+        Route::post('/update/{id}',  'update')->name('update');
+        Route::post('/delete/{id}',  'destroy')->name('destroy');
+    });
+
+Route::get('lang', [LangController::class, 'setLang']);
 
 /* ********************* test route *******************
 /* =============== 1-m ================ */
@@ -79,12 +84,12 @@ Route::get('1-m-create', function () {
 });
 
 /* =============== env- config ================ */
-Route::get('env' , function(){
+Route::get('env', function () {
     // return env('APP_NAME');
-    return env('APP_NAME' , 'Not Found');
+    return env('APP_NAME', 'Not Found');
 });
 
-Route::get('config' , function(){
+Route::get('config', function () {
     return config('app.name');
 });
 
@@ -100,13 +105,13 @@ Route::get('m-m-2', function () {
 
 Route::get('book-attach', function () {
     $book = Book::find('1112223334445');
-    $book->authors()->attach([10 , 2 ]);
-   return redirect('m-m-1') ;
+    $book->authors()->attach([10, 2]);
+    return redirect('m-m-1');
 });
 Route::get('book-detach', function () {
     $book = Book::find('1112223334445');
-    $book->authors()->detach([ 2]);
-    return redirect('m-m-1') ;
+    $book->authors()->detach([2]);
+    return redirect('m-m-1');
 });
 
 /* ===============storage================ */
@@ -119,27 +124,26 @@ Route::get('public-path', function () {
 });
 
 /* ===============view================ */
-Route::get('view-test' , function(){
+Route::get('view-test', function () {
     // return view('categories.index');  
-    return view('categories.index' , ['x' => 5 , 'y' => 10]);
+    return view('categories.index', ['x' => 5, 'y' => 10]);
 });
 
 /* compact */
-Route::get('compact' , function(){
+Route::get('compact', function () {
     $x = 5;
     $y = 10;
     // return view('categories.index' , ['x' => $x , 'y' => $y]);
     // return compact('x' , 'y');
-    return view('categories.index' ,  compact('x' , 'y'));
-    
+    return view('categories.index',  compact('x', 'y'));
 });
 
 
 
-Route::get('master' , function(){
+Route::get('master', function () {
     return view('layouts.master');
 });
 /* ***********route*****/
-Route::get('route' , function(){
+Route::get('route', function () {
     return route('categories.index');
 });
