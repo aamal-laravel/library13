@@ -1,14 +1,25 @@
 @extends('layouts.master')
-@section('page' , __('library.add-category'))
+@section('page', __('library.add-category'))
 @section('content')
-<h1>@lang('library.add-category')</h1>
+    <h1>@lang('library.add-category')</h1>
     <form action="/categories" method="post">
         @csrf
+        <div class="text-danger">
+            @foreach ($errors->all() as $error)
+                {{ $error }} <br>
+            @endforeach
+        </div>
+
         <div class="mb-3">
             <label for="name" class="form-label">@lang('library.name')</label>
-            <input type="text" class="form-control" name="name" id="name">
+            <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
+            <div class="text-danger">
+                @error('name')
+                    {{ $message }}
+                @enderror
+            </div>
         </div>
         <button class="btn btn-secondary">@lang('library.add-category')</button>
-        <a href="{{route('categories.index')}}" class="btn btn-outline-secondary">@lang('library.back')</a>
+        <a href="{{ route('categories.index') }}" class="btn btn-outline-secondary">@lang('library.back')</a>
     </form>
-@endsection     
+@endsection

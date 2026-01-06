@@ -108,6 +108,8 @@ Route::get('book-attach', function () {
     $book->authors()->attach([10, 2]);
     return redirect('m-m-1');
 });
+
+
 Route::get('book-detach', function () {
     $book = Book::find('1112223334445');
     $book->authors()->detach([2]);

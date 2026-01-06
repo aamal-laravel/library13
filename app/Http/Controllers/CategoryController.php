@@ -48,7 +48,7 @@ class CategoryController extends Controller
                 'data' => $category
             ];
         else
-            return redirect('categories');
+            return redirect('categories')->with('success', "category added successfully");
     }
 
 
@@ -83,8 +83,9 @@ class CategoryController extends Controller
 
             ];
         else
-            return redirect()->route('categories.index');
+            return redirect()->route('categories.index')->with('success', "category updated successfully");
     }
+
     function destroy($id, Request $request)
     {
         $category = Category::find($id);
@@ -97,7 +98,7 @@ class CategoryController extends Controller
                     'message' => "can't delete category has books",
                 ];
             else
-                return redirect()->route('categories.index');
+                return redirect()->route('categories.index')->with('error', "category has books can't be deled");;
 
 
 
@@ -109,6 +110,6 @@ class CategoryController extends Controller
                 'message' => "category deleted successfully"
             ];
         else
-            return redirect()->route('categories.index');
+            return redirect()->route('categories.index')->with('success', "category deleted successfully");;
     }
 }

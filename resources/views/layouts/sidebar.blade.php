@@ -9,9 +9,9 @@
                   Pages
               </li>
 
-              <li class="sidebar-item">
-                  <a class="sidebar-link" href="{{ route('categories.index')}}">
-                      <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Categories</span>
+              <li class="sidebar-item active">
+                  <a class="sidebar-link " href="{{ route('categories.index')}}">
+                      <i class="align-middle " data-feather="layers"></i> <span class="align-middle">Categories</span>
                   </a>
               </li>
 
