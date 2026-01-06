@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\ProfileController;
@@ -38,6 +39,7 @@ Route::controller(CategoryController::class)
         Route::post('/delete/{id}',  'destroy')->name('destroy');
     });
 
+Route::name('web')->resource('books', BookController::class);
 Route::get('lang', [LangController::class, 'setLang']);
 
 /* ********************* test route *******************

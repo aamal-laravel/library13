@@ -19,7 +19,8 @@ class BookSeeder extends Seeder
             'title' => 'test book',
             'price' => 0,
             'mortgage' => 0,
-            'category_id' => Category::first()->id,
+            'cover' => '1112223334445.png',
+            'category_id' => Category::first()->id,            
         ];
         Book::create($book);
         Book::factory(100)->create();

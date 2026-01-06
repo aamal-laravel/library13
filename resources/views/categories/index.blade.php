@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center">
-        <h1>@lang('library.all-books')</h1>
+        <h1>@lang('library.all-categries')</h1>
         <a href="{{route('categories.create')}}" class="btn btn-secondary">@lang('library.add-category') </a>
     </div>
     <table class="table table-bordered table-striped table-hover">

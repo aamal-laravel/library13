@@ -5,6 +5,8 @@ return [
     'edit-category' => 'edit category',
 
     'all-books' => 'All Books',
+    'all-categries' => 'All categries',
+
     'name' => 'name',
     'back' => 'back',
 ];

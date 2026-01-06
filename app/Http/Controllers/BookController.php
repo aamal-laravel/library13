@@ -32,12 +32,14 @@ class BookController extends Controller
                 return $q->orderBy($orderBy , $dir);
             })
             ->get();
-
+            if($request->is('api/*'))
         return [
             'success' => true,
             'message' => "all books ",
             'data' => BookResourse::collection($books)
         ];
+        else
+            return view('books.index' , compact('books'));
     }   
 
     function getByTitle(Request $request)

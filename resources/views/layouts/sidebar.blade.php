@@ -16,8 +16,8 @@
               </li>
 
               <li class="sidebar-item">
-                  <a class="sidebar-link" href="pages-profile.html">
-                      <i class="align-middle" data-feather="server"></i> <span class="align-middle">Profile</span>
+                  <a class="sidebar-link" href="{{route('web.books.index')}}">
+                      <i class="align-middle" data-feather="server"></i> <span class="align-middle">books</span>
                   </a>
               </li>            
           </ul>          

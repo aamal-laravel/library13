@@ -4,6 +4,7 @@ return [
     'add-category' => 'إضافة صنف',
     'edit-category' => 'تعديل صنف',
     'all-books' => 'كافة الكتب',
+    'all-categries' => 'كافة الأصناف',
     'name' => 'الاسم',
     'back' => 'عودة',
 ];
